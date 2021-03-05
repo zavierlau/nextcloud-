@@ -56,3 +56,27 @@ You'll need to wait a few minutes on first launch, as there is some certificate 
 ![](screenshot.png)
 
 You can now define your administrator credentials and use Nextcloud.
+
+scan new file in containers
+
+列出来在跑的containers，找到 nextcloud 对应的 container ID，然后
+
+sudo docker exec -ti ${CONTAINER_ID} bash
+就到了container的环境里。
+
+接下来要先安装sudo
+
+apt-get update && apt-get install -y sudo
+
+
+修正文件权限
+
+sudo chown -R www-data:www-data data/${USERNAME}/files/
+
+
+重新扫描
+
+sudo -u www-data php occ files:scan --all 
+
+
+文件多的话会比较慢，但是等着就好了。
